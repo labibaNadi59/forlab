@@ -1,0 +1,387 @@
+/* 1. Variables & Global Styles */
+:root {
+    --primary-teal: #009488;
+    --dark-teal: #007a70;
+    --register-green: #2d6a4f;
+    --text-dark: #1f2937;
+    --bg-light: #f3f4f6;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: var(--text-dark);
+}
+
+/* 2. Navigation Bar (Darker Gray Style) */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 80px;
+    background-color: #e5e7eb; /* Slightly darker gray to stand out */
+    border-bottom: 2px solid #d1d5db;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* 3. Logo & Brand Branding */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-box {
+    width: 30px;
+    height: 30px;
+    background-color: var(--primary-teal);
+    border-radius: 4px;
+}
+
+.logo strong {
+    font-size: 1.6rem;
+    color: var(--primary-teal);
+    display: flex;
+    align-items: center;
+}
+
+/* Ensures .BD matches the ShishuShield Teal */
+.logo strong span {
+    color: var(--primary-teal);
+}
+
+/* 4. Navigation Links */
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #374151; /* Dark charcoal for contrast on gray */
+    margin-left: 30px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-teal);
+}
+
+.btn-register {
+    background-color: var(--register-green) !important;
+    color: white !important;
+    padding: 10px 25px !important;
+    border-radius: 50px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+/* 5. Hero Section (Login/Sign Up Buttons) */
+.hero {
+    display: flex;
+    padding: 60px 80px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-image {
+    flex: 1;
+    text-align: right;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 6. Button Container (Login & Sign Up) */
+.cta-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.btn-main {
+    background-color: var(--primary-teal);
+    color: white;
+    border: none;
+    padding: 15px 45px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-main:hover {
+    background-color: var(--dark-teal);
+}
+
+.btn-sec {
+    background-color: #e6f4f3;
+    color: var(--primary-teal);
+    border: 2px solid var(--primary-teal);
+    padding: 13px 43px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-sec:hover {
+    background-color: var(--primary-teal);
+    color: white;
+}
+
+
+
+
+
+/*Dashboard*/
+.dashboard-container {
+    display: flex;
+    min-height: calc(100vh - 80px); /* Adjust based on navbar height */
+    background-color: #f9fafb;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 280px;
+    background-color: var(--text-dark);
+    color: white;
+    padding: 30px 20px;
+}
+
+.side-nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.side-nav a {
+    color: #9ca3af;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+.side-nav a.active, .side-nav a:hover {
+    background-color: var(--primary-teal);
+    color: white;
+}
+
+/* Main Dashboard Area */
+.main-dashboard {
+    flex: 1;
+    padding: 40px;
+}
+
+.welcome-header h1 {
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    padding: 25px;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.teal-card { background-color: var(--primary-teal); }
+.dark-card { background-color: var(--text-dark); }
+.gray-card { background-color: #6b7280; }
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Appointments Table */
+.appointments-section {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.appt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.appt-table th, .appt-table td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.status.pending { background: #fef3c7; color: #92400e; }
+.status.done { background: #dcfce7; color: #166534; }
+
+
+
+
+
+/* Sidebar Icon Styling */
+.side-nav a i {
+    width: 25px; /* Fixed width so text stays aligned */
+    margin-right: 12px;
+    font-size: 1.1rem;
+    text-align: center;
+    transition: 0.3s;
+}
+
+/* Optional: Make icon pop slightly on hover */
+.side-nav a:hover i {
+    transform: scale(1.1);
+    color: white;
+}
+
+/* Sidebar Profile Styling (If you want that Logout button to look better) */
+.user-profile {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 20px;
+}
+
+.btn-logout-small {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+<!-- here nadi added hor login .html page -->
+/* Auth Pages (Login & Register) */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    background-color: var(--bg-light);
+}
+
+.auth-card {
+    background-color: white;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header .logo-box {
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-teal);
+    border-radius: 10px;
+    margin: 0 auto 15px auto;
+}
+
+.auth-header h2 {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin: 0 0 8px 0;
+}
+
+.auth-header p {
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Form fields */
+.auth-card form p {
+    margin-bottom: 20px;
+}
+
+.auth-card form p label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+
+.auth-card form p input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.auth-card form p input:focus {
+    outline: none;
+    border-color: var(--primary-teal);
+}
+
+/* Error messages */
+.auth-card form p ul {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin: 5px 0 0 0;
+    padding-left: 15px;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #6b7280;
+}
+
+.auth-footer a {
+    color: var(--primary-teal);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    color: var(--dark-teal);
+}
