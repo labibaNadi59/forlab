@@ -1,4 +1,125 @@
+{% extends 'base.html' %}
 
+<!--
 <h2>Parent Dashboard</h2>
 <p>Welcome, {{ request.user.username }}</p>
 <a href="{% url 'logout' %}">Logout</a>
+-->
+{% load static %}
+
+{% block title %}Parent Dashboard - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="user-profile" style="text-align: center; padding: 20px 10px;">
+            <div style="background: rgba(255,255,255,0.1); width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                 <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--primary-teal);"></i>
+            </div>
+            <h3 style="font-size: 1.1rem; color: white; margin-bottom: 10px;">Parent Account</h3>
+            <a href="{% url 'logout' %}" class="btn-logout-small" style="background: #ff4757; border: none; padding: 6px 15px; border-radius: 20px; color: white; cursor: pointer; font-size: 0.8rem; text-decoration: none; display: inline-block;">
+    <i class="fas fa-sign-out-alt"></i> Logout
+</a>
+       </div>
+
+        <nav class="side-nav">
+             <a href="{% url 'parent_dashboard' %}" class="active">
+                 <i class="fas fa-th-large"></i> Dashboard
+            </a>
+            <a href="#">
+                <i class="fas fa-child"></i> My Children
+            </a>
+            <a href="#">
+                <i class="fas fa-calendar-check"></i> Book Appointments
+            </a>
+            <a href="#">
+                <i class="fas fa-syringe"></i> Vaccine Suggestions
+            </a>
+            <a href="#">
+                <i class="fas fa-hospital"></i> Rate Hospital
+            </a>
+        </nav>
+
+    </aside>
+
+    <main class="main-dashboard">
+        <header class="welcome-header" style="margin-bottom: 30px;">
+            <h1 style="color: var(--text-dark); font-size: 2rem; margin-bottom: 5px;">
+                Welcome, Parent!
+            </h1>
+            <div style="display: flex; align-items: center; color: #64748b; font-size: 0.95rem;">
+                 <i class="fas fa-calendar-day" style="margin-right: 8px; color: var(--primary-teal);"></i>
+                <span>Today is <strong>{% now "l, F j, Y" %}</strong></span>
+            </div>
+            <p style="margin-top: 10px; color: #94a3b8; font-style: italic;">
+                 Child Vaccination Management System
+            </p>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card teal-card">
+                <h4>Total Vaccines</h4>
+                <div class="stat-value">{{ children|length }}</div>
+            </div>
+            <div class="stat-card gray-card">
+                <h4>Completed</h4>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card dark-card">
+                <h4>Pending</h4>
+                <div class="stat-value">{{ children|length }}</div>
+            </div>
+        </section>
+
+        <section class="appointments-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Recent Appointments</h3>
+                <a href="#" class="btn-main" style="padding: 8px 20px; font-size: 0.9rem; text-decoration: none;">+ Add New</a>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Recent Appointments</h3>
+                 <a href="#" class="btn-main" style="padding: 10px 20px; text-decoration: none; font-size: 0.9rem;">
+                    + Add New Child
+                </a>
+            </div>
+            <table class="appt-table">
+                <thead>
+                   <tr>
+                       <th>Child Name</th>
+                       <th>Vaccine</th>
+                       <th>Date</th>
+                       <th>Status</th>
+                       <th>Action</th> </tr>
+                </thead>
+                <tbody>
+                    {% if children %}
+                        {% for child in children %}
+                        <tr>
+                            <td><strong>{{ child.name }}</strong></td>
+                            <td>{{ child.vaccine }}</td>
+                            <td>{{ child.date }}</td>
+                            <td><span class="status pending">Pending</span></td>
+                             <td>
+                                 <form action="#" method="POST" style="display:inline;">
+                                     {% csrf_token %}
+                                     <button type="submit" style="background:none; border:none; color:#ff4757; cursor:pointer;" title="Delete">
+                                         <i class="fas fa-trash-alt"></i>
+                                     </button>
+                                 </form>
+                             </td>
+                        </tr>
+                         {% endfor %}
+                     {% else %}
+                        <tr>
+                             <td colspan="5" style="text-align: center; padding: 60px; color: #94a3b8;">
+                                 <p>No children added yet.</p>
+                                 <a href="#" style="color: var(--primary-teal); font-weight: bold;">Click here to add your first child!</a>
+                             </td>
+                        </tr>
+                     {% endif %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+{% endblock %}

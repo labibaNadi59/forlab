@@ -1,6 +1,35 @@
+{% extends 'base.html' %}
+<!--
 <h2>Register as Parent</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Register</button>
 </form>
+-->
+
+{% load static %}
+
+{% block title %}Register - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo-box"></div>
+            <h2>Register as Parent</h2>
+            <p>Create your ShishuShield.BD account</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-main" style="width: 100%; padding: 15px;">Register</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

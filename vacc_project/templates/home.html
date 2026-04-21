@@ -1,4 +1,5 @@
-
+{% extends 'base.html' %}
+<!--
 <h1>Child Vaccination Management System</h1>
 <p>Welcome! Please login or register to continue.</p>
 
@@ -7,4 +8,29 @@
 <p>New here? Register as:</p>
 <a href="{% url 'register_parent' %}">Parent</a>
 <a href="{% url 'register_hospital' %}">Hospital</a>
+-->
+
+{% load static %}
+
+{% block title %}Home - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<main class="hero">
+    <div class="hero-text">
+        <h1>Protect Your<br>Child's<br>Future</h1>
+        <p>Ensuring a healthy start through timely vaccinations.</p>
+
+        <div class="cta-container">
+            <a href="{% url 'login' %}" class="btn-main" style="text-decoration: none; text-align: center; display: inline-block;">Login</a>
+            <a href="{% url 'register_parent' %}" class="btn-sec" style="text-decoration: none; text-align: center; display: inline-block;">Register as Parent</a>
+            <a href="{% url 'register_hospital' %}" class="btn-sec" style="text-decoration: none; text-align: center; display: inline-block;">Register as Hospital</a>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="{% static 'images/family-hero.png' %}" alt="Doctor with child" style="width: 100%; max-width: 500px;">
+    </div>
+</main>
+{% endblock %}
+
 
