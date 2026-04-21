@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+<!--
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button>
+</form>
+<p>Register as <a href="{% url 'register_parent' %}">Parent</a> or
+  <a href="{% url 'register_hospital' %}">Hospital</a></p>
+-->
+
+{% load static %}
+
+{% block title %}Login - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo-box"></div>
+            <h2>Welcome Back</h2>
+            <p>Login to your ShishuShield.BD account</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-main" style="width: 100%; padding: 15px;">Login</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>New here? Register as
+                <a href="{% url 'register_parent' %}">Parent</a> or
+                <a href="{% url 'register_hospital' %}">Hospital</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
