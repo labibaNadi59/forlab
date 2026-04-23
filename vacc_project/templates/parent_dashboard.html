@@ -26,7 +26,7 @@
              <a href="{% url 'parent_dashboard' %}" class="active">
                  <i class="fas fa-th-large"></i> Dashboard
             </a>
-            <a href="#">
+            <a href="{% url 'child_list' %}">
                 <i class="fas fa-child"></i> My Children
             </a>
             <a href="#">
@@ -45,7 +45,7 @@
     <main class="main-dashboard">
         <header class="welcome-header" style="margin-bottom: 30px;">
             <h1 style="color: var(--text-dark); font-size: 2rem; margin-bottom: 5px;">
-                Welcome, Parent!
+                Welcome, {{ request.user.username }}!
             </h1>
             <div style="display: flex; align-items: center; color: #64748b; font-size: 0.95rem;">
                  <i class="fas fa-calendar-day" style="margin-right: 8px; color: var(--primary-teal);"></i>
@@ -57,67 +57,45 @@
         </header>
 
         <section class="stats-grid">
-            <div class="stat-card teal-card">
-                <h4>Total Vaccines</h4>
-                <div class="stat-value">{{ children|length }}</div>
-            </div>
-            <div class="stat-card gray-card">
-                <h4>Completed</h4>
-                <div class="stat-value">0</div>
-            </div>
-            <div class="stat-card dark-card">
-                <h4>Pending</h4>
-                <div class="stat-value">{{ children|length }}</div>
-            </div>
-        </section>
+    <div class="stat-card teal-card">
+        <h4>My Children</h4>
+        <div class="stat-value">{{ children|length }}</div>
+    </div>
+    <div class="stat-card gray-card">
+        <h4>Completed</h4>
+        <div class="stat-value">0</div>
+    </div>
+    <div class="stat-card dark-card">
+        <h4>Pending</h4>
+        <div class="stat-value">0</div>
+    </div>
+</section>
 
         <section class="appointments-section">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3>Recent Appointments</h3>
-                <a href="#" class="btn-main" style="padding: 8px 20px; font-size: 0.9rem; text-decoration: none;">+ Add New</a>
-            </div>
+
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3>Recent Appointments</h3>
-                 <a href="#" class="btn-main" style="padding: 10px 20px; text-decoration: none; font-size: 0.9rem;">
-                    + Add New Child
-                </a>
+                 <a href="{% url 'child_create' %}" class="btn-main" style="padding: 10px 20px; text-decoration: none; font-size: 0.9rem;">
+    + Add New Child
+</a>
             </div>
             <table class="appt-table">
-                <thead>
-                   <tr>
-                       <th>Child Name</th>
-                       <th>Vaccine</th>
-                       <th>Date</th>
-                       <th>Status</th>
-                       <th>Action</th> </tr>
-                </thead>
-                <tbody>
-                    {% if children %}
-                        {% for child in children %}
-                        <tr>
-                            <td><strong>{{ child.name }}</strong></td>
-                            <td>{{ child.vaccine }}</td>
-                            <td>{{ child.date }}</td>
-                            <td><span class="status pending">Pending</span></td>
-                             <td>
-                                 <form action="#" method="POST" style="display:inline;">
-                                     {% csrf_token %}
-                                     <button type="submit" style="background:none; border:none; color:#ff4757; cursor:pointer;" title="Delete">
-                                         <i class="fas fa-trash-alt"></i>
-                                     </button>
-                                 </form>
-                             </td>
-                        </tr>
-                         {% endfor %}
-                     {% else %}
-                        <tr>
-                             <td colspan="5" style="text-align: center; padding: 60px; color: #94a3b8;">
-                                 <p>No children added yet.</p>
-                                 <a href="#" style="color: var(--primary-teal); font-weight: bold;">Click here to add your first child!</a>
-                             </td>
-                        </tr>
-                     {% endif %}
-                </tbody>
+<thead>
+    <tr>
+        <th>Child Name</th>
+        <th>Vaccine</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td colspan="4" style="text-align: center; padding: 60px; color: #94a3b8;">
+            <p>No appointments yet.</p>
+            <a href="#" style="color: var(--primary-teal); font-weight: bold;">Book your first appointment!</a>
+        </td>
+    </tr>
+</tbody>
             </table>
         </section>
     </main>

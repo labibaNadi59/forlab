@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 from .forms import ParentForm, HospitalForm
 from .models import Parent, Hospital
-
+from vaccination.models import Child
 
 # Create your views here.
 def home(request):
@@ -68,4 +68,6 @@ def hospital_dashboard(request):
     return render(request, 'hospital_dashboard.html')
 
 def parent_dashboard(request):
-    return render(request, 'parent_dashboard.html')
+    parent = Parent.objects.get(user=request.user)
+    children = Child.objects.filter(parent=parent)
+    return render(request, 'parent_dashboard.html', {'children': children})

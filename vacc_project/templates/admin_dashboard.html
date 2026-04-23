@@ -1,4 +1,29 @@
+{% extends 'base.html' %}
 
-<h2>Admin Dashboard</h2>
-<p>Welcome, {{ request.user.username }}</p>
-<a href="{% url 'logout' %}">Logout</a>
+{% block title %}Admin Dashboard - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="sidebar">
+        <div class="user-profile">
+            <p>Welcome</p>
+            <strong>{{ request.user.username }}</strong>
+        </div>
+        <div class="side-nav">
+            <a href="{% url 'vaccine_list' %}">
+                <i class="fas fa-syringe"></i> Manage Vaccines
+            </a>
+            <a href="{% url 'logout' %}">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="main-dashboard">
+        <div class="welcome-header">
+            <h1>Admin Dashboard</h1>
+            <p>Manage vaccines and hospitals here.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
