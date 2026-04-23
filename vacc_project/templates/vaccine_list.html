@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Vaccines - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="main-dashboard">
+    <div class="welcome-header">
+        <h1>Vaccines</h1>
+        <a href="{% url 'vaccine_create' %}" class="btn-main" style="text-decoration: none; padding: 10px 25px;">Add Vaccine</a>
+    </div>
+
+    <div class="appointments-section" style="margin-top: 30px;">
+        <table class="appt-table">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            {% for vaccine in vaccines %}
+            <tr>
+                <td>{{ vaccine.name }}</td>
+                <td>{{ vaccine.description }}</td>
+                <td>
+                    <a href="{% url 'vaccine_update' vaccine.pk %}">Edit</a>
+                    <a href="{% url 'vaccine_delete' vaccine.pk %}" style="color: red; margin-left: 10px;">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No vaccines added yet.</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

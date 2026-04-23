@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Vaccine Form - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo-box"></div>
+            <h2>Vaccine Details</h2>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-main" style="width: 100%; padding: 15px;">Save</button>
+        </form>
+
+        <div class="auth-footer">
+            <a href="{% url 'vaccine_list' %}">Back to Vaccines</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
