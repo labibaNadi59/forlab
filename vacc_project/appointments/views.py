@@ -57,3 +57,57 @@ def appointment_reschedule(request, app_id):
         form.fields['child'].queryset = Child.objects.filter(parent=parent)
     return render(request, 'appointment_form.html', {'form': form})
 
+#Appointment Management system for Hospital
+
+
+
+def hospital_appointments(request):
+    hospital = Hospital.objects.get(user=request.user)
+    appointments = Appointment.objects.filter(hospital=hospital)
+    return render(request, 'hospital_appointments.html', {'appointments': appointments})
+
+
+def appointment_accept(request, app_id):
+    appointment = Appointment.objects.get(pk=app_id)
+    appointment.status = 'accepted'
+    appointment.save()
+    return redirect('hospital_appointments')
+
+
+
+def appointment_complete(request, app_id):
+    appointment = Appointment.objects.get(pk=app_id)
+    appointment.status = 'completed'
+    appointment.save()
+    return redirect('hospital_appointments')
+
+
+def appointment_missed(request, app_id):
+    appointment = Appointment.objects.get(pk=app_id)
+    appointment.status = 'missed'
+    appointment.save()
+    return redirect('hospital_appointments')
+
+
+
+
+
+#Rating system for Parent
+
+
+
+def rate_hospital(request, rate_id):
+    appointment = Appointment.objects.get(pk=rate_id)
+    parent = Parent.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.parent = parent
+            rating.hospital = appointment.hospital
+            rating.appointment = appointment
+            rating.save()
+            return redirect('appointment_list')
+    else:
+        form = RatingForm()
+    return render(request, 'rating_form.html', {'form': form})
