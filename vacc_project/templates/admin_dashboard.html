@@ -4,20 +4,45 @@
 
 {% block content %}
 <div class="dashboard-container">
-    <div class="sidebar">
-        <div class="user-profile">
-            <p>Welcome</p>
-            <strong>{{ request.user.username }}</strong>
-        </div>
-        <div class="side-nav">
-            <a href="{% url 'vaccine_list' %}">
-                <i class="fas fa-syringe"></i> Manage Vaccines
-            </a>
-            <a href="{% url 'logout' %}">
+    <aside class="sidebar">
+        <div class="user-profile" style="text-align: center; padding: 20px 10px;">
+
+            {% if request.user.photo %}
+                <img src="{{ request.user.photo.url }}" alt="Profile Photo"
+                style="width: 60px; height: 60px; border-radius: 50%;
+                object-fit: cover; margin: 0 auto 15px; display: block;
+                border: 2px solid var(--primary-teal);">
+            {% else %}
+                <div style="background: rgba(255,255,255,0.1); width: 60px; height: 60px;
+                border-radius: 50%; margin: 0 auto 15px; display: flex;
+                align-items: center; justify-content: center;">
+                    <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--primary-teal);"></i>
+                </div>
+            {% endif %}
+
+            <h3 style="font-size: 1.1rem; color: white; margin-bottom: 10px;">
+                {{ request.user.username }}
+            </h3>
+            <a href="{% url 'logout' %}"
+            style="background: #ff4757; border: none; padding: 6px 15px;
+            border-radius: 20px; color: white; cursor: pointer;
+            font-size: 0.8rem; text-decoration: none; display: inline-block;">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
-    </div>
+
+        <nav class="side-nav">
+            <a href="{% url 'admin_dashboard' %}" class="active">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a>
+            <a href="{% url 'vaccine_list' %}">
+                <i class="fas fa-syringe"></i> Manage Vaccines
+            </a>
+            <a href="{% url 'admin_profile' %}">
+                <i class="fas fa-user-edit"></i> Edit Profile
+            </a>
+        </nav>
+    </aside>
 
     <div class="main-dashboard">
         <div class="welcome-header">
@@ -27,3 +52,4 @@
     </div>
 </div>
 {% endblock %}
+

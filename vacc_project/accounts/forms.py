@@ -22,3 +22,9 @@ class AdminProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['photo']
+
+
+class HospitalProfileForm(forms.ModelForm):
+    class Meta:
+        model = Hospital
+        fields = ['name', 'phone', 'address', 'logo']
