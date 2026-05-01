@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 
-from .forms import ParentForm, HospitalForm, ParentProfileForm
+from .forms import ParentForm, HospitalForm, ParentProfileForm, AdminProfileForm
 from .models import Parent, Hospital
 from vaccination.models import Child
 
@@ -107,9 +107,9 @@ def admin_profile(request):
         if form.is_valid():
             form.save()
             return redirect('admin_dashboard')
-        else:
-            form = AdminProfileForm(instance=request.user)
-        return render(request, 'admin_profile.html', {'form': form})
+    else:
+        form = AdminProfileForm(instance=request.user)
+    return render(request, 'admin_profile.html', {'form': form})
 
 def admin_photo_delete(request):
     if request.method == 'POST':
