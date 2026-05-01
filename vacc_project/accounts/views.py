@@ -63,10 +63,24 @@ def logout_view(request):
 
 
 def admin_dashboard(request):
-    return render(request, 'admin_dashboard.html')
+    return render(request, 'admin_dashboard.html', {
+        'user': request.user
+    })
+
 
 def hospital_dashboard(request):
-    return render(request, 'hospital_dashboard.html')
+    hospital = Hospital.objects.get(user=request.user)
+    appointments = Appointment.objects.filter(hospital=hospital)
+    completed = appointments.filter(status='completed').count()
+    pending = appointments.filter(status='pending').count()
+    return render(request, 'hospital_dashboard.html', {
+        'hospital': hospital,
+        'appointments': appointments,
+        'completed': completed,
+        'pending': pending,
+    })
+
+
 
 def parent_dashboard(request):
     parent = Parent.objects.get(user=request.user)
@@ -118,3 +132,22 @@ def admin_photo_delete(request):
         request.user.save()
         return redirect('admin_profile')
 
+def hospital_profile(request):
+    hospital = Hospital.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = HospitalProfileForm(request.POST, request.FILES, instance=hospital)
+        if form.is_valid():
+            form.save()
+            return redirect('hospital_dashboard')
+    else:
+        form = HospitalProfileForm(instance=hospital)
+    return render(request, 'hospital_profile.html', {'form': form, 'hospital': hospital})
+
+
+def hospital_logo_delete(request):
+    hospital = Hospital.objects.get(user=request.user)
+    if request.method == 'POST':
+        hospital.logo.delete()
+        hospital.logo = None
+        hospital.save()
+        return redirect('hospital_profile')
