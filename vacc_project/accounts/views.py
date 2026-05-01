@@ -71,8 +71,16 @@ def hospital_dashboard(request):
 def parent_dashboard(request):
     parent = Parent.objects.get(user=request.user)
     children = Child.objects.filter(parent=parent)
-    return render(request, 'parent_dashboard.html', {'children': children})
-
+    appointments = Appointment.objects.filter(parent=parent)
+    completed = appointments.filter(status='completed').count()
+    pending = appointments.filter(status='pending').count()
+    return render(request, 'parent_dashboard.html', {
+        'children': children,
+        'appointments': appointments,
+        'completed': completed,
+        'pending': pending,
+        'parent': parent,
+    })
 def parent_profile(request):
     parent = Parent.objects.get(user=request.user)
     if request.method == 'POST':
@@ -83,3 +91,12 @@ def parent_profile(request):
     else:
         form = ParentProfileForm(instance=parent)
     return render(request, 'parent_profile.html', {'form': form, 'parent': parent})
+
+
+def parent_photo_delete(request):
+    parent = Parent.objects.get(user=request.user)
+    if request.method == 'POST':
+        parent.photo.delete()
+        parent.photo = None
+        parent.save()
+        return redirect('parent_profile')
