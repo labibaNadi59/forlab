@@ -26,4 +26,10 @@ urlpatterns = [
     path('dashboard/admin/', views.admin_dashboard, name='admin_dashboard'),
     path('dashboard/hospital/', views.hospital_dashboard, name='hospital_dashboard'),
     path('dashboard/parent/', views.parent_dashboard, name='parent_dashboard'),
+    path('profile/parent/', views.parent_profile, name='parent_profile'),
+    path('profile/parent/photo/delete/', views.parent_photo_delete, name='parent_photo_delete'),
+    path('profile/admin/', views.admin_profile, name='admin_profile'),
+    path('profile/admin/photo/delete/', views.admin_photo_delete, name='admin_photo_delete'),
+    path('profile/hospital/', views.hospital_profile, name='hospital_profile'),
+    path('profile/hospital/logo/delete/', views.hospital_logo_delete, name='hospital_logo_delete'),
 ]

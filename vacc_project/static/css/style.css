@@ -385,3 +385,9 @@ nav {
 .auth-footer a:hover {
     color: var(--dark-teal);
 }
+
+/* Nadi added */
+status.accepted { background: #dbeafe; color: #1e40af; }
+.status.completed { background: #dcfce7; color: #166534; }
+.status.missed { background: #fee2e2; color: #991b1b; }
+.status.cancelled { background: #f3f4f6; color: #6b7280; }

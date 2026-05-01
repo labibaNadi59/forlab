@@ -12,3 +12,8 @@ class HospitalForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2']
+
+class ParentProfileForm(forms.ModelForm):
+    class Meta:
+        model = Parent
+        fields = ['phone', 'address', 'photo']

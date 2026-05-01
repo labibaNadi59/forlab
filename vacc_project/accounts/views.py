@@ -2,10 +2,11 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 
-from .forms import ParentForm, HospitalForm
+from .forms import ParentForm, HospitalForm, ParentProfileForm
 from .models import Parent, Hospital
 from vaccination.models import Child
 
+from appointments.models import Appointment
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -71,3 +72,14 @@ def parent_dashboard(request):
     parent = Parent.objects.get(user=request.user)
     children = Child.objects.filter(parent=parent)
     return render(request, 'parent_dashboard.html', {'children': children})
+
+def parent_profile(request):
+    parent = Parent.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = ParentProfileForm(request.POST, request.FILES, instance=parent)
+        if form.is_valid():
+            form.save()
+            return redirect('parent_dashboard')
+    else:
+        form = ParentProfileForm(instance=parent)
+    return render(request, 'parent_profile.html', {'form': form, 'parent': parent})
