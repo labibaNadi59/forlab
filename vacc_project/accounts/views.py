@@ -69,7 +69,18 @@ def admin_dashboard(request):
 
 
 def hospital_dashboard(request):
-    return render(request, 'hospital_dashboard.html')
+    hospital = Hospital.objects.get(user=request.user)
+    appointments = Appointment.objects.filter(hospital=hospital)
+    completed = appointments.filter(status='completed').count()
+    pending = appointments.filter(status='pending').count()
+    return render(request, 'hospital_dashboard.html', {
+        'hospital': hospital,
+        'appointments': appointments,
+        'completed': completed,
+        'pending': pending,
+    })
+
+
 
 def parent_dashboard(request):
     parent = Parent.objects.get(user=request.user)
