@@ -100,3 +100,21 @@ def parent_photo_delete(request):
         parent.photo = None
         parent.save()
         return redirect('parent_profile')
+
+def admin_profile(request):
+    if request.method == 'POST':
+        form = AdminProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+        else:
+            form = AdminProfileForm(instance=request.user)
+        return render(request, 'admin_profile.html', {'form': form})
+
+def admin_photo_delete(request):
+    if request.method == 'POST':
+        request.user.photo.delete()
+        request.user.photo = None
+        request.user.save()
+        return redirect('admin_profile')
+
