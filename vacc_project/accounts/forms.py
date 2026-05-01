@@ -17,3 +17,8 @@ class ParentProfileForm(forms.ModelForm):
     class Meta:
         model = Parent
         fields = ['phone', 'address', 'photo']
+
+class AdminProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['photo']
