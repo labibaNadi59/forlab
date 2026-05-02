@@ -6,7 +6,11 @@ from .forms import ParentForm, HospitalForm, ParentProfileForm, AdminProfileForm
 from .models import Parent, Hospital
 from vaccination.models import Child
 
-from appointments.models import Appointment
+from appointments.models import Appointment, Reminder
+
+
+
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -81,20 +85,24 @@ def hospital_dashboard(request):
     })
 
 
-
 def parent_dashboard(request):
     parent = Parent.objects.get(user=request.user)
     children = Child.objects.filter(parent=parent)
     appointments = Appointment.objects.filter(parent=parent)
     completed = appointments.filter(status='completed').count()
     pending = appointments.filter(status='pending').count()
+
+    reminders = Reminder.objects.filter(appointment__parent=parent)
+
     return render(request, 'parent_dashboard.html', {
         'children': children,
         'appointments': appointments,
         'completed': completed,
         'pending': pending,
         'parent': parent,
+        'reminders': reminders,
     })
+
 def parent_profile(request):
     parent = Parent.objects.get(user=request.user)
     if request.method == 'POST':

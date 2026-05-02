@@ -79,41 +79,74 @@
     </div>
     <div class="stat-card gray-card">
         <h4>Completed</h4>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ completed }}</div>
     </div>
     <div class="stat-card dark-card">
         <h4>Pending</h4>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ pending }}</div>
     </div>
 </section>
 
         <section class="appointments-section">
-
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3>Recent Appointments</h3>
-                 <a href="{% url 'child_create' %}" class="btn-main" style="padding: 10px 20px; text-decoration: none; font-size: 0.9rem;">
-    + Add New Child
-</a>
-            </div>
-            <table class="appt-table">
-<thead>
-    <tr>
-        <th>Child Name</th>
-        <th>Vaccine</th>
-        <th>Date</th>
-        <th>Status</th>
-    </tr>
-</thead>
-<tbody>
-    <tr>
-        <td colspan="4" style="text-align: center; padding: 60px; color: #94a3b8;">
-            <p>No appointments yet.</p>
-            <a href="{% url 'appointment_list' %}" style="color: var(--primary-teal); font-weight: bold;">Book your first appointment!</a>
-        </td>
-    </tr>
-</tbody>
-            </table>
-        </section>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3>Recent Appointments</h3>
+        <a href="{% url 'appointment_create' %}" class="btn-main" style="padding: 10px 20px; text-decoration: none; font-size: 0.9rem;">
+            + Book Appointment
+        </a>
+    </div>
+    <table class="appt-table">
+        <thead>
+            <tr>
+                <th>Child</th>
+                <th>Vaccine</th>
+                <th>Hospital</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if appointments %}
+                {% for appointment in appointments %}
+                <tr>
+                    <td><strong>{{ appointment.child.name }}</strong></td>
+                    <td>{{ appointment.vaccine.name }}</td>
+                    <td>{{ appointment.hospital.name }}</td>
+                    <td>{{ appointment.appointment_date }}</td>
+                    <td>
+                        <span class="status {{ appointment.status }}">
+                            {{ appointment.status }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if appointment.status == 'pending' %}
+                            <a href="{% url 'appointment_reschedule' appointment.pk %}"
+                            style="color: var(--primary-teal);">Reschedule</a>
+                            <a href="{% url 'appointment_cancel' appointment.pk %}"
+                            style="color: #ff4757; margin-left: 10px;">Cancel</a>
+                        {% elif appointment.status == 'completed' %}
+                            <a href="{% url 'rate_hospital' appointment.pk %}"
+                            style="color: var(--primary-teal);">Rate</a>
+                        {% else %}
+                            <span style="color: #94a3b8;">{{ appointment.status }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 60px; color: #94a3b8;">
+                        <p>No appointments yet.</p>
+                        <a href="{% url 'appointment_create' %}"
+                        style="color: var(--primary-teal); font-weight: bold;">
+                            Book your first appointment!
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</section>
     </main>
 </div>
 {% endblock %}
