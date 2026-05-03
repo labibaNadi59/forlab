@@ -133,3 +133,25 @@ def delete_reminder(request, app_id):
         appointment.reminder.delete()
         return redirect('parent_dashboard')
 
+
+def rate_hospital(request, rate_id):
+    appointment = Appointment.objects.get(pk=rate_id)
+    parent = Parent.objects.get(user=request.user)
+
+    already_rated = Rating.objects.filter(appointment=appointment).exists()
+    if already_rated:
+        return redirect('appointment_list')
+
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.parent = parent
+            rating.hospital = appointment.hospital
+            rating.appointment = appointment
+            rating.save()
+            return redirect('appointment_list')
+    else:
+        form = RatingForm()
+    return render(request, 'rating_form.html', {'form': form})
+

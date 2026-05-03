@@ -48,9 +48,10 @@
             <a href="{% url 'appointment_list' %}">
                 <i class="fas fa-calendar-check"></i> Book Appointments
             </a>
-            <a href="#">
-                <i class="fas fa-syringe"></i> Vaccine Suggestions
-            </a>
+            <a href="{% url 'select_child' %}">
+    <i class="fas fa-syringe"></i> Vaccine Suggestions
+</a>
+
             <a href="{% url 'parent_profile' %}">
     <i class="fas fa-user-edit"></i> Edit Profile
            </a>
@@ -180,8 +181,15 @@
         <i class="fas fa-bell"></i> Remind
     </a>
 {% elif appointment.status == 'completed' %}
-    <a href="{% url 'rate_hospital' appointment.pk %}"
-    style="color: var(--primary-teal);">Rate</a>
+    {% if appointment.rating %}
+        <span style="color: #166534; background: #dcfce7;
+        padding: 4px 10px; border-radius: 20px; font-size: 0.85rem;">
+            ★ Rated {{ appointment.rating.score }}/5
+        </span>
+    {% else %}
+        <a href="{% url 'rate_hospital' appointment.pk %}"
+        style="color: var(--primary-teal);">Rate</a>
+    {% endif %}
 {% else %}
     <span style="color: #94a3b8;">{{ appointment.status }}</span>
 {% endif %}
