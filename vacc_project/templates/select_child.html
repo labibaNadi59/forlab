@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Select Child - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo-box"></div>
+            <h2>Vaccine Suggestions</h2>
+            <p>Select a child to see suggestions</p>
+        </div>
+
+        <div style="margin-top: 20px;">
+            {% if children %}
+                {% for child in children %}
+                <a href="{% url 'vaccine_suggestions' child.pk %}"
+                style="display: block; padding: 15px 20px; margin-bottom: 10px;
+                border: 2px solid var(--primary-teal); border-radius: 10px;
+                text-decoration: none; color: var(--text-dark);
+                transition: all 0.3s ease;">
+                    <i class="fas fa-child" style="color: var(--primary-teal); margin-right: 10px;"></i>
+                    <strong>{{ child.name }}</strong>
+                    <span style="color: #94a3b8; font-size: 0.85rem; margin-left: 10px;">
+                        Born: {{ child.date_of_birth }}
+                    </span>
+                </a>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #94a3b8;">
+                    No children added yet.
+                    <a href="{% url 'child_create' %}" style="color: var(--primary-teal);">
+                        Add a child first!
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="auth-footer">
+            <a href="{% url 'parent_dashboard' %}">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

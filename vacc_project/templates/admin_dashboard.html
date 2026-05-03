@@ -32,24 +32,59 @@
         </div>
 
         <nav class="side-nav">
-            <a href="{% url 'admin_dashboard' %}" class="active">
-                <i class="fas fa-th-large"></i> Dashboard
-            </a>
-            <a href="{% url 'vaccine_list' %}">
-                <i class="fas fa-syringe"></i> Manage Vaccines
-            </a>
-            <a href="{% url 'admin_profile' %}">
-                <i class="fas fa-user-edit"></i> Edit Profile
-            </a>
-        </nav>
+    <a href="{% url 'admin_dashboard' %}" class="active">
+        <i class="fas fa-th-large"></i> Dashboard
+    </a>
+    <a href="{% url 'vaccine_list' %}">
+        <i class="fas fa-syringe"></i> Manage Vaccines
+    </a>
+    <a href="{% url 'manage_parents' %}">
+        <i class="fas fa-users"></i> Manage Parents
+    </a>
+    <a href="{% url 'manage_hospitals' %}">
+        <i class="fas fa-hospital"></i> Manage Hospitals
+    </a>
+    <a href="{% url 'manage_appointments' %}">
+        <i class="fas fa-calendar-check"></i> All Appointments
+    </a>
+    <a href="{% url 'admin_profile' %}">
+        <i class="fas fa-user-edit"></i> Edit Profile
+    </a>
+</nav>
     </aside>
 
     <div class="main-dashboard">
-        <div class="welcome-header">
-            <h1>Admin Dashboard</h1>
-            <p>Manage vaccines and hospitals here.</p>
+        <div class="welcome-header" style="margin-bottom: 30px;">
+            <h1 style="color: var(--text-dark); font-size: 2rem; margin-bottom: 5px;">
+                Admin Dashboard
+            </h1>
+            <div style="display: flex; align-items: center; color: #64748b; font-size: 0.95rem;">
+                <i class="fas fa-calendar-day" style="margin-right: 8px; color: var(--primary-teal);"></i>
+                <span>Today is <strong>{% now "l, F j, Y" %}</strong></span>
+            </div>
+            <p style="margin-top: 10px; color: #94a3b8; font-style: italic;">
+                Child Vaccination Management System
+            </p>
         </div>
+
+        <section class="stats-grid">
+            <div class="stat-card teal-card">
+                <h4>Total Parents</h4>
+                <div class="stat-value">{{ total_parents }}</div>
+            </div>
+            <div class="stat-card dark-card">
+                <h4>Total Hospitals</h4>
+                <div class="stat-value">{{ total_hospitals }}</div>
+            </div>
+            <div class="stat-card gray-card">
+                <h4>Total Vaccines</h4>
+                <div class="stat-value">{{ total_vaccines }}</div>
+            </div>
+            <div class="stat-card teal-card">
+                <h4>Total Appointments</h4>
+                <div class="stat-value">{{ total_appointments }}</div>
+            </div>
+        </section>
     </div>
 </div>
 {% endblock %}
-

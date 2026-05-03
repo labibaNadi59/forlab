@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 from .forms import ParentForm, HospitalForm, ParentProfileForm, AdminProfileForm, HospitalProfileForm
 from .models import Parent, Hospital
-from vaccination.models import Child
+from vaccination.models import Child , Vaccine
 
 from appointments.models import Appointment, Reminder
 
@@ -67,9 +67,17 @@ def logout_view(request):
 
 
 def admin_dashboard(request):
+    total_parents = Parent.objects.count()
+    total_hospitals = Hospital.objects.count()
+    total_vaccines = Vaccine.objects.count()
+    total_appointments = Appointment.objects.count()
     return render(request, 'admin_dashboard.html', {
-        'user': request.user
+        'total_parents': total_parents,
+        'total_hospitals': total_hospitals,
+        'total_vaccines': total_vaccines,
+        'total_appointments': total_appointments,
     })
+
 
 
 def hospital_dashboard(request):
@@ -160,3 +168,30 @@ def hospital_logo_delete(request):
         hospital.logo = None
         hospital.save()
         return redirect('hospital_profile')
+
+
+def manage_parents(request):
+    parents = Parent.objects.all()
+    return render(request, 'manage_parents.html', {'parents': parents})
+
+
+def delete_parent(request, parent_id):
+    parent = Parent.objects.get(id=parent_id)
+    parent.user.delete()  # deletes user and parent profile together
+    return redirect('manage_parents')
+
+
+def manage_hospitals(request):
+    hospitals = Hospital.objects.all()
+    return render(request, 'manage_hospitals.html', {'hospitals': hospitals})
+
+
+def delete_hospital(request, hospital_id):
+    hospital = Hospital.objects.get(id=hospital_id)
+    hospital.user.delete()
+    return redirect('manage_hospitals')
+
+
+def manage_appointments(request):
+    appointments = Appointment.objects.all()
+    return render(request, 'manage_appointments.html', {'appointments': appointments})

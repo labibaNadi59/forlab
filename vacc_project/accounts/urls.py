@@ -32,4 +32,11 @@ urlpatterns = [
     path('profile/admin/photo/delete/', views.admin_photo_delete, name='admin_photo_delete'),
     path('profile/hospital/', views.hospital_profile, name='hospital_profile'),
     path('profile/hospital/logo/delete/', views.hospital_logo_delete, name='hospital_logo_delete'),
+path('manage/parents/', views.manage_parents, name='manage_parents'),
+path('manage/parents/delete/<int:parent_id>/', views.delete_parent, name='delete_parent'),
+path('manage/hospitals/', views.manage_hospitals, name='manage_hospitals'),
+path('manage/hospitals/delete/<int:hospital_id>/', views.delete_hospital, name='delete_hospital'),
+path('manage/appointments/', views.manage_appointments, name='manage_appointments'),
+
+
 ]
