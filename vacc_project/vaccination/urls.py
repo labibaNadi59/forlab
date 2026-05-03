@@ -30,4 +30,7 @@ urlpatterns = [
     path('children/add/', views.child_create, name='child_create'),
     path('children/edit/<int:pk>/', views.child_update, name='child_update'),
     path('children/delete/<int:pk>/', views.child_delete, name='child_delete'),
+path('suggestions/<int:child_id>/', views.vaccine_suggestions, name='vaccine_suggestions'),
+path('suggestions/', views.select_child_for_suggestions, name='select_child'),
+
 ]

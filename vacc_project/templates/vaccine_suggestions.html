@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Vaccine Suggestions - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="main-dashboard">
+    <div class="welcome-header" style="margin-bottom: 30px;">
+        <h1>Vaccine Suggestions</h1>
+        <p style="color: #64748b;">
+            Showing suggestions for <strong>{{ child.name }}</strong> —
+            Age: <strong>{{ age_in_months }} months</strong>
+        </p>
+    </div>
+
+    <div class="appointments-section">
+        <table class="appt-table">
+            <thead>
+                <tr>
+                    <th>Vaccine</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for suggestion in suggestions %}
+                <tr>
+                    <td><strong>{{ suggestion.vaccine }}</strong></td>
+                    <td>{{ suggestion.description }}</td>
+                    <td>
+                        <a href="{% url 'appointment_create' %}"
+                        style="color: var(--primary-teal); font-weight: bold;">
+                            <i class="fas fa-calendar-plus"></i> Book Now
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'parent_dashboard' %}" class="btn-sec"
+        style="text-decoration: none; padding: 10px 25px;">
+            Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

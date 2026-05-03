@@ -2,6 +2,7 @@ from django.shortcuts import render,  redirect
 from .models import Vaccine, Child
 from .forms import VaccineForm, ChildForm
 from accounts.models import Parent
+from datetime import date
 
 # Create your views here.
 
@@ -78,3 +79,71 @@ def child_update(request, pk):
 def child_delete(request, pk):
     Child.objects.get(pk=pk).delete()
     return redirect('child_list')
+
+
+#arnob
+
+
+def vaccine_suggestions(request, child_id):
+    child = Child.objects.get(pk=child_id)
+
+    # calculate age in months
+    today = date.today()
+    age_in_months = (today.year - child.date_of_birth.year) * 12 + (today.month - child.date_of_birth.month)
+
+    # static suggestion list based on age
+    suggestions = []
+
+    if age_in_months <= 2:
+        suggestions = [
+            {'vaccine': 'BCG', 'description': 'Protects against Tuberculosis'},
+            {'vaccine': 'Hepatitis B', 'description': 'First dose at birth'},
+        ]
+    elif age_in_months <= 4:
+        suggestions = [
+            {'vaccine': 'DPT', 'description': 'Protects against Diphtheria, Pertussis, Tetanus'},
+            {'vaccine': 'Polio (OPV)', 'description': 'Oral Polio Vaccine first dose'},
+            {'vaccine': 'Hepatitis B', 'description': 'Second dose'},
+        ]
+    elif age_in_months <= 6:
+        suggestions = [
+            {'vaccine': 'DPT', 'description': 'Second dose'},
+            {'vaccine': 'Polio (OPV)', 'description': 'Second dose'},
+            {'vaccine': 'Influenza', 'description': 'Protects against seasonal flu'},
+        ]
+    elif age_in_months <= 12:
+        suggestions = [
+            {'vaccine': 'DPT', 'description': 'Third dose booster'},
+            {'vaccine': 'Polio (OPV)', 'description': 'Third dose'},
+            {'vaccine': 'Hepatitis B', 'description': 'Third dose'},
+        ]
+    elif age_in_months <= 18:
+        suggestions = [
+            {'vaccine': 'MMR', 'description': 'Protects against Measles, Mumps, Rubella'},
+            {'vaccine': 'Varicella', 'description': 'Protects against Chickenpox'},
+        ]
+    elif age_in_months <= 24:
+        suggestions = [
+            {'vaccine': 'MMR', 'description': 'Second dose booster'},
+            {'vaccine': 'Hepatitis A', 'description': 'Protects against Hepatitis A'},
+        ]
+    else:
+        suggestions = [
+            {'vaccine': 'Tdap', 'description': 'Tetanus, Diphtheria booster'},
+            {'vaccine': 'HPV', 'description': 'Protects against Human Papillomavirus'},
+        ]
+
+    return render(request, 'vaccine_suggestions.html', {
+        'child': child,
+        'suggestions': suggestions,
+        'age_in_months': age_in_months,
+    })
+
+
+
+def select_child_for_suggestions(request):
+    parent = Parent.objects.get(user=request.user)
+    children = Child.objects.filter(parent=parent)
+    return render(request, 'select_child.html', {'children': children})
+
+
