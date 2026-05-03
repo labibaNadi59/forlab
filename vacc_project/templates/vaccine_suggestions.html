@@ -33,6 +33,13 @@
                         </a>
                     </td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" style="text-align: center; padding: 40px; color: #94a3b8;">
+                        <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--primary-teal); margin-bottom: 10px; display: block;"></i>
+                        <p>All recommended vaccines for <strong>{{ child.name }}</strong> are completed!</p>
+                    </td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -46,3 +53,4 @@
     </div>
 </div>
 {% endblock %}
+
