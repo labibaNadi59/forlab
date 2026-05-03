@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Hospitals - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="main-dashboard">
+    <div class="welcome-header" style="margin-bottom: 30px;">
+        <h1>Manage Hospitals</h1>
+    </div>
+
+    <div class="appointments-section">
+        <table class="appt-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hospital in hospitals %}
+                <tr>
+                    <td>{{ hospital.user.username }}</td>
+                    <td>{{ hospital.name }}</td>
+                    <td>{{ hospital.phone }}</td>
+                    <td>{{ hospital.address }}</td>
+                    <td>
+                        <a href="{% url 'delete_hospital' hospital.id %}"
+                        style="color: #ff4757;">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 40px; color: #94a3b8;">
+                        No hospitals registered yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'admin_dashboard' %}" class="btn-sec"
+        style="text-decoration: none; padding: 10px 25px;">
+            Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}
