@@ -111,3 +111,25 @@ def rate_hospital(request, rate_id):
     else:
         form = RatingForm()
     return render(request, 'rating_form.html', {'form': form})
+
+#---- arnob
+def set_reminder(request, app_id):
+    appointment = Appointment.objects.get(pk=app_id)
+    if request.method == 'POST':
+        form = ReminderForm(request.POST)
+        if form.is_valid():
+            reminder = form.save(commit=False)
+            reminder.appointment = appointment
+            reminder.save()
+            return redirect('parent_dashboard')
+    else:
+        form = ReminderForm()
+    return render(request, 'reminder_form.html', {'form': form, 'appointment': appointment})
+
+
+def delete_reminder(request, app_id):
+    appointment = Appointment.objects.get(pk=app_id)
+    if request.method == 'POST':
+        appointment.reminder.delete()
+        return redirect('parent_dashboard')
+

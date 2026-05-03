@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Set Reminder - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo-box"></div>
+            <h2>Set Reminder</h2>
+            <p>{{ appointment.child.name }} — {{ appointment.vaccine.name }}</p>
+            <p style="color: #94a3b8; font-size: 0.9rem;">
+                Appointment date: {{ appointment.appointment_date }}
+            </p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-main" style="width: 100%; padding: 15px;">
+                Set Reminder
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <a href="{% url 'parent_dashboard' %}">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

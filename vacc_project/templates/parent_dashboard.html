@@ -87,6 +87,52 @@
     </div>
 </section>
 
+
+                <section class="appointments-section" style="margin-top: 30px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3>Upcoming Reminders</h3>
+    </div>
+    <table class="appt-table">
+        <thead>
+            <tr>
+                <th>Child</th>
+                <th>Vaccine</th>
+                <th>Reminder Date</th>
+                <th>Message</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if reminders %}
+                {% for reminder in reminders %}
+                <tr>
+                    <td><strong>{{ reminder.appointment.child.name }}</strong></td>
+                    <td>{{ reminder.appointment.vaccine.name }}</td>
+                    <td>{{ reminder.reminder_date }}</td>
+                    <td>{{ reminder.message }}</td>
+                    <td>
+                        <form method="post" action="{% url 'delete_reminder' reminder.appointment.pk %}">
+                            {% csrf_token %}
+                            <button type="submit"
+                            style="background: none; border: none; color: #ff4757; cursor: pointer;">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 40px; color: #94a3b8;">
+                        <p>No reminders set yet.</p>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</section>
+
+
         <section class="appointments-section">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h3>Recent Appointments</h3>
@@ -120,16 +166,25 @@
                     </td>
                     <td>
                         {% if appointment.status == 'pending' %}
-                            <a href="{% url 'appointment_reschedule' appointment.pk %}"
-                            style="color: var(--primary-teal);">Reschedule</a>
-                            <a href="{% url 'appointment_cancel' appointment.pk %}"
-                            style="color: #ff4757; margin-left: 10px;">Cancel</a>
-                        {% elif appointment.status == 'completed' %}
-                            <a href="{% url 'rate_hospital' appointment.pk %}"
-                            style="color: var(--primary-teal);">Rate</a>
-                        {% else %}
-                            <span style="color: #94a3b8;">{{ appointment.status }}</span>
-                        {% endif %}
+    <a href="{% url 'appointment_reschedule' appointment.pk %}"
+    style="color: var(--primary-teal);">Reschedule</a>
+    <a href="{% url 'appointment_cancel' appointment.pk %}"
+    style="color: #ff4757; margin-left: 10px;">Cancel</a>
+    <a href="{% url 'set_reminder' appointment.pk %}"
+    style="color: var(--dark-teal); margin-left: 10px;">
+        <i class="fas fa-bell"></i> Remind
+    </a>
+{% elif appointment.status == 'accepted' %}
+    <a href="{% url 'set_reminder' appointment.pk %}"
+    style="color: var(--dark-teal);">
+        <i class="fas fa-bell"></i> Remind
+    </a>
+{% elif appointment.status == 'completed' %}
+    <a href="{% url 'rate_hospital' appointment.pk %}"
+    style="color: var(--primary-teal);">Rate</a>
+{% else %}
+    <span style="color: #94a3b8;">{{ appointment.status }}</span>
+{% endif %}
                     </td>
                 </tr>
                 {% endfor %}
@@ -147,7 +202,7 @@
         </tbody>
     </table>
 </section>
+
     </main>
 </div>
 {% endblock %}
-
