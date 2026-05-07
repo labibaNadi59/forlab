@@ -38,6 +38,9 @@
             <a href="{% url 'hospital_appointments' %}">
                 <i class="fas fa-calendar-check"></i> Appointments
             </a>
+            <a href="{% url 'hospital_ratings' hospital.id %}">
+    <i class="fas fa-star"></i> My Ratings
+</a>
             <a href="{% url 'hospital_profile' %}">
                 <i class="fas fa-user-edit"></i> Edit Profile
             </a>

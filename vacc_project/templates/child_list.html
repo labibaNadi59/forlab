@@ -5,7 +5,7 @@
 {% block content %}
 <div class="main-dashboard">
     <div class="welcome-header">
-        <h1>My Children</h1>
+        <h2>My Children</h2>
         <a href="{% url 'child_create' %}" class="btn-main" style="text-decoration: none; padding: 10px 25px;">Add Child</a>
     </div>
 
@@ -40,6 +40,12 @@
             </tr>
             {% endfor %}
         </table>
+    </div>
+    <div style="margin-top: 20px;">
+        <a href="{% url 'parent_dashboard' %}" class="btn-sec"
+        style="text-decoration: none; padding: 10px 25px;">
+            Back to Dashboard
+        </a>
     </div>
 </div>
 {% endblock %}

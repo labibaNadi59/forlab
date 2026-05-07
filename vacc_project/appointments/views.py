@@ -155,3 +155,25 @@ def rate_hospital(request, rate_id):
         form = RatingForm()
     return render(request, 'rating_form.html', {'form': form})
 
+
+def hospital_ratings(request, hospital_id):
+    hospital = Hospital.objects.get(id=hospital_id)
+    ratings = Rating.objects.filter(hospital=hospital)
+    total = ratings.count()
+    if total > 0:
+        average = sum(r.score for r in ratings) / total
+        average = round(average, 1)
+    else:
+        average = 0
+    return render(request, 'hospital_ratings.html', {
+        'hospital': hospital,
+        'ratings': ratings,
+        'average': average,
+        'total': total,
+    })
+
+def hospital_list(request):
+    hospitals = Hospital.objects.all()
+    return render(request, 'hospital_list.html', {'hospitals': hospitals})
+
+

@@ -29,5 +29,7 @@ urlpatterns = [
     path('rate/<int:rate_id>/', views.rate_hospital, name='rate_hospital'),
 path('reminder/set/<int:app_id>/', views.set_reminder, name='set_reminder'),
 path('reminder/delete/<int:app_id>/', views.delete_reminder, name='delete_reminder'),
+path('ratings/<int:hospital_id>/', views.hospital_ratings, name='hospital_ratings'),
+path('hospitals/', views.hospital_list, name='hospital_list'),
 
 ]

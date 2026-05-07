@@ -27,11 +27,15 @@
                     <td>{{ hospital.phone }}</td>
                     <td>{{ hospital.address }}</td>
                     <td>
-                        <a href="{% url 'delete_hospital' hospital.id %}"
-                        style="color: #ff4757;">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </a>
-                    </td>
+    <a href="{% url 'hospital_ratings' hospital.id %}"
+    style="color: var(--primary-teal); margin-right: 10px;">
+        <i class="fas fa-star"></i> Ratings
+    </a>
+    <a href="{% url 'delete_hospital' hospital.id %}"
+    style="color: #ff4757;">
+        <i class="fas fa-trash-alt"></i> Delete
+    </a>
+</td>
                 </tr>
                 {% empty %}
                 <tr>
