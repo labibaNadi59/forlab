@@ -16,7 +16,7 @@ class HospitalForm(UserCreationForm):
 class ParentProfileForm(forms.ModelForm):
     class Meta:
         model = Parent
-        fields = ['phone', 'address', 'photo']
+        fields = ['name', 'phone', 'address', 'photo']
 
 class AdminProfileForm(forms.ModelForm):
     class Meta:

@@ -31,5 +31,6 @@ path('reminder/set/<int:app_id>/', views.set_reminder, name='set_reminder'),
 path('reminder/delete/<int:app_id>/', views.delete_reminder, name='delete_reminder'),
 path('ratings/<int:hospital_id>/', views.hospital_ratings, name='hospital_ratings'),
 path('hospitals/', views.hospital_list, name='hospital_list'),
+path('book/<int:child_id>/<str:vaccine_name>/', views.appointment_create_prefilled, name='appointment_create_prefilled'),
 
 ]

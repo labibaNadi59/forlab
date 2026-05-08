@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Appointment, Rating, Reminder
 from .forms import AppointmentForm, RatingForm, ReminderForm
 from accounts.models import Parent, Hospital
-from vaccination.models import Child
+from vaccination.models import Child, Vaccine
 
 
 # Create your views here.
@@ -176,4 +176,34 @@ def hospital_list(request):
     hospitals = Hospital.objects.all()
     return render(request, 'hospital_list.html', {'hospitals': hospitals})
 
+
+def appointment_create_prefilled(request, child_id, vaccine_name):
+    parent = Parent.objects.get(user=request.user)
+    child = Child.objects.get(pk=child_id)
+
+    try:
+        vaccine = Vaccine.objects.get(name=vaccine_name)
+    except Vaccine.DoesNotExist:
+        vaccine = None
+
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.parent = parent
+            appointment.save()
+            return redirect('appointment_list')
+    else:
+        # child and vaccine pre fill
+        form = AppointmentForm(initial={
+            'child': child,
+            'vaccine': vaccine,
+        })
+        form.fields['child'].queryset = Child.objects.filter(parent=parent)
+
+    return render(request, 'appointment_form.html', {
+        'form': form,
+        'child': child,
+        'vaccine': vaccine,
+    })
 

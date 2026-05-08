@@ -27,8 +27,8 @@
                     <td><strong>{{ suggestion.vaccine }}</strong></td>
                     <td>{{ suggestion.description }}</td>
                     <td>
-                        <a href="{% url 'appointment_create' %}"
-                        style="color: var(--primary-teal); font-weight: bold;">
+                        <a href="{% url 'appointment_create_prefilled' child.pk suggestion.vaccine %}"
+                            style="color: var(--primary-teal); font-weight: bold;">
                             <i class="fas fa-calendar-plus"></i> Book Now
                         </a>
                     </td>
