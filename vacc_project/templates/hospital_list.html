@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Hospitals - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="main-dashboard">
+    <div class="welcome-header" style="margin-bottom: 30px;">
+        <h1>Hospitals</h1>
+    </div>
+
+    <div class="appointments-section">
+        <table class="appt-table">
+            <thead>
+                <tr>
+                    <th>Logo</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hospital in hospitals %}
+                <tr>
+                    <td>
+                        {% if hospital.logo %}
+                            <img src="{{ hospital.logo.url }}"
+                            style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                        {% else %}
+                            <i class="fas fa-hospital" style="font-size: 1.5rem; color: var(--primary-teal);"></i>
+                        {% endif %}
+                    </td>
+                    <td><strong>{{ hospital.name }}</strong></td>
+                    <td>{{ hospital.phone }}</td>
+                    <td>{{ hospital.address }}</td>
+                    <td>
+                       <a href="{% url 'hospital_ratings' hospital.id %}"
+style="
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--primary-teal);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+"
+onmouseover="this.style.transform='translateY(-2px)';this.style.opacity='0.92'"
+onmouseout="this.style.transform='translateY(0px)';this.style.opacity='1'">
+    <i class="fas fa-star"></i>
+    View Ratings
+</a>
+
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 40px; color: #94a3b8;">
+                        No hospitals registered yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'parent_dashboard' %}" class="btn-sec"
+        style="text-decoration: none; padding: 10px 25px;">
+            Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

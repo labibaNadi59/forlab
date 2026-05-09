@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Hospital Ratings - ShishuShield.BD{% endblock %}
+
+{% block content %}
+<div class="main-dashboard">
+    <div class="welcome-header" style="margin-bottom: 30px;">
+        <h1>{{ hospital.name }} Ratings</h1>
+        <p style="color: #64748b;">
+            Average Score:
+            <strong style="color: var(--primary-teal); font-size: 1.5rem;">
+                {{ average }}/5
+            </strong>
+            — Total Reviews: <strong>{{ total }}</strong>
+        </p>
+    </div>
+
+    <div class="appointments-section">
+        <table class="appt-table">
+            <thead>
+                <tr>
+                    <th>Parent</th>
+                    <th>Score</th>
+                    <th>Review</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rating in ratings %}
+                <tr>
+                    <td>{{ rating.parent.user.username }}</td>
+                    <td>
+                        <span style="color: var(--primary-teal); font-weight: bold;">
+                            {{ rating.score }}/5
+                        </span>
+                    </td>
+                    <td>{{ rating.review }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" style="text-align: center; padding: 40px; color: #94a3b8;">
+                        No ratings yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="javascript:history.back()" class="btn-sec"
+        style="text-decoration: none; padding: 10px 25px;">
+            Back
+        </a>
+    </div>
+</div>
+{% endblock %}
