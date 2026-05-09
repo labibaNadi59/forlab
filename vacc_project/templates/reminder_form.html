@@ -4,27 +4,82 @@
 
 {% block content %}
 <div class="auth-wrapper">
-    <div class="auth-card">
+    <div class="auth-card" style="max-width: 550px;">
+
         <div class="auth-header">
-            <div class="logo-box"></div>
+            <div style="width: 90px; height: 90px; border-radius: 50%;
+            background: var(--primary-teal); margin: 0 auto 15px;
+            display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-bell" style="color: white; font-size: 2.5rem;"></i>
+            </div>
+
             <h2>Set Reminder</h2>
-            <p>{{ appointment.child.name }} — {{ appointment.vaccine.name }}</p>
-            <p style="color: #94a3b8; font-size: 0.9rem;">
-                Appointment date: {{ appointment.appointment_date }}
+
+            <p style="color: #94a3b8;">
+                {{ appointment.child.name }} — {{ appointment.vaccine.name }}
+            </p>
+
+            <p style="color: #94a3b8; font-size: 0.95rem;">
+                Appointment Date: {{ appointment.appointment_date }}
             </p>
         </div>
 
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn-main" style="width: 100%; padding: 15px;">
+
+            {% for field in form %}
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600;
+                color: var(--text-dark); margin-bottom: 6px;">
+
+                    <i class="fas fa-clock"
+                    style="color: var(--primary-teal); margin-right: 6px;"></i>
+
+                    {{ field.label }}
+                </label>
+
+                {{ field.errors }}
+
+                {{ field }}
+            </div>
+            {% endfor %}
+
+            <style>
+                form input,
+                form select,
+                form textarea {
+                    width: 100%;
+                    padding: 12px 15px;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                    box-sizing: border-box;
+                    outline: none;
+                    transition: 0.3s ease;
+                }
+
+                form input:focus,
+                form select:focus,
+                form textarea:focus {
+                    border-color: var(--primary-teal);
+                }
+            </style>
+
+            <button type="submit" class="btn-main"
+            style="width: 100%; padding: 15px;">
+                <i class="fas fa-bell" style="margin-right: 8px;"></i>
                 Set Reminder
             </button>
         </form>
 
         <div class="auth-footer">
-            <a href="{% url 'parent_dashboard' %}">Back to Dashboard</a>
+            <a href="{% url 'parent_dashboard' %}">
+                <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+                Back to Dashboard
+            </a>
         </div>
+
     </div>
 </div>
 {% endblock %}
+

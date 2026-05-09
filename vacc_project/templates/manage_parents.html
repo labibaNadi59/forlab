@@ -28,9 +28,25 @@
                     <td>{{ parent.address }}</td>
                     <td>
                         <a href="{% url 'delete_parent' parent.id %}"
-                        style="color: #ff4757;">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </a>
+   style="
+       display: inline-flex;
+       align-items: center;
+       gap: 6px;
+       padding: 8px 14px;
+       background: rgba(255, 71, 87, 0.1);
+       color: #ff4757;
+       border: 1px solid rgba(255, 71, 87, 0.2);
+       border-radius: 8px;
+       text-decoration: none;
+       font-weight: 500;
+       transition: all 0.3s ease;
+   "
+   onmouseover="this.style.background='#ff4757'; this.style.color='white';"
+   onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';">
+
+    <i class="fas fa-trash-alt"></i> Delete
+</a>
+
                     </td>
                 </tr>
                 {% empty %}
