@@ -90,28 +90,6 @@ def appointment_missed(request, app_id):
 
 
 
-
-
-#Rating system for Parent
-
-
-
-def rate_hospital(request, rate_id):
-    appointment = Appointment.objects.get(pk=rate_id)
-    parent = Parent.objects.get(user=request.user)
-    if request.method == 'POST':
-        form = RatingForm(request.POST)
-        if form.is_valid():
-            rating = form.save(commit=False)
-            rating.parent = parent
-            rating.hospital = appointment.hospital
-            rating.appointment = appointment
-            rating.save()
-            return redirect('appointment_list')
-    else:
-        form = RatingForm()
-    return render(request, 'rating_form.html', {'form': form})
-
 #---- arnob
 def set_reminder(request, app_id):
     appointment = Appointment.objects.get(pk=app_id)
