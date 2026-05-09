@@ -5,46 +5,101 @@
 
 {% block content %}
 <div class="auth-wrapper">
-    <div class="auth-card">
+    <div class="auth-card" style="max-width: 550px;">
         <div class="auth-header">
-
             {% if hospital.logo %}
                 <img src="{{ hospital.logo.url }}" alt="Hospital Logo"
-                style="width: 80px; height: 80px; border-radius: 50%;
-                object-fit: cover; margin-bottom: 15px;">
+                style="width: 90px; height: 90px; border-radius: 50%;
+                object-fit: cover; margin-bottom: 15px;
+                border: 3px solid var(--primary-teal);">
             {% else %}
-                <div style="width: 80px; height: 80px; border-radius: 50%;
+                <div style="width: 90px; height: 90px; border-radius: 50%;
                 background: var(--primary-teal); margin: 0 auto 15px;
                 display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-hospital" style="color: white; font-size: 2rem;"></i>
+                    <i class="fas fa-hospital" style="color: white; font-size: 2.5rem;"></i>
                 </div>
             {% endif %}
-
             <h2>Hospital Profile</h2>
-            <p>{{ request.user.username }}</p>
+            <p style="color: #94a3b8;">{{ request.user.username }}</p>
         </div>
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600;
+                color: var(--text-dark); margin-bottom: 6px;">
+                    <i class="fas fa-hospital" style="color: var(--primary-teal); margin-right: 6px;"></i>
+                    Hospital Name
+                </label>
+                <input type="text" name="name" value="{{ form.name.value|default:'' }}"
+                style="width: 100%; padding: 12px 15px; border: 2px solid #e5e7eb;
+                border-radius: 10px; font-size: 1rem; box-sizing: border-box; outline: none;"
+                onfocus="this.style.borderColor='var(--primary-teal)'"
+                onblur="this.style.borderColor='#e5e7eb'">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600;
+                color: var(--text-dark); margin-bottom: 6px;">
+                    <i class="fas fa-phone" style="color: var(--primary-teal); margin-right: 6px;"></i>
+                    Phone
+                </label>
+                <input type="text" name="phone" value="{{ form.phone.value|default:'' }}"
+                style="width: 100%; padding: 12px 15px; border: 2px solid #e5e7eb;
+                border-radius: 10px; font-size: 1rem; box-sizing: border-box; outline: none;"
+                onfocus="this.style.borderColor='var(--primary-teal)'"
+                onblur="this.style.borderColor='#e5e7eb'">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600;
+                color: var(--text-dark); margin-bottom: 6px;">
+                    <i class="fas fa-map-marker-alt" style="color: var(--primary-teal); margin-right: 6px;"></i>
+                    Address
+                </label>
+                <textarea name="address" rows="3"
+                style="width: 100%; padding: 12px 15px; border: 2px solid #e5e7eb;
+                border-radius: 10px; font-size: 1rem; box-sizing: border-box;
+                outline: none; resize: vertical; font-family: inherit;"
+                onfocus="this.style.borderColor='var(--primary-teal)'"
+                onblur="this.style.borderColor='#e5e7eb'">{{ form.address.value|default:'' }}</textarea>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; font-weight: 600;
+                color: var(--text-dark); margin-bottom: 6px;">
+                    <i class="fas fa-camera" style="color: var(--primary-teal); margin-right: 6px;"></i>
+                    Hospital Logo
+                </label>
+                <input type="file" name="logo" accept="image/*"
+                style="width: 100%; padding: 10px; border: 2px dashed #e5e7eb;
+                border-radius: 10px; font-size: 0.9rem; box-sizing: border-box;
+                cursor: pointer; background: #f9fafb;">
+            </div>
+
             <button type="submit" class="btn-main" style="width: 100%; padding: 15px;">
-                Save Changes
+                <i class="fas fa-save" style="margin-right: 8px;"></i>Save Changes
             </button>
         </form>
 
         {% if hospital.logo %}
-        <form method="post" action="{% url 'hospital_logo_delete' %}">
+        <form method="post" action="{% url 'hospital_logo_delete' %}" style="margin-top: 10px;">
             {% csrf_token %}
-            <button type="submit" style="width: 100%; padding: 12px; margin-top: 10px;
+            <button type="submit" style="width: 100%; padding: 12px;
             background: none; border: 2px solid #ff4757; color: #ff4757;
-            border-radius: 50px; font-weight: bold; cursor: pointer;">
-                Remove Logo
+            border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1rem;"
+            onmouseover="this.style.background='#ff4757';this.style.color='white'"
+            onmouseout="this.style.background='none';this.style.color='#ff4757'">
+                <i class="fas fa-trash-alt" style="margin-right: 8px;"></i>Remove Logo
             </button>
         </form>
         {% endif %}
 
         <div class="auth-footer">
-            <a href="{% url 'hospital_dashboard' %}">Back to Dashboard</a>
+            <a href="{% url 'hospital_dashboard' %}">
+                <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>Back to Dashboard
+            </a>
         </div>
     </div>
 </div>
