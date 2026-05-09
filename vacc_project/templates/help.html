@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Help - ShishuShield.BD{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="align-items: flex-start;">
+
+    <div class="hero-text" style="max-width: 800px;">
+
+        <h1>Help &<br>Support</h1>
+
+        <p>
+            Welcome to the Help Page of ShishuShield.BD.
+            Here are some common instructions for using the system.
+        </p>
+
+        <br>
+
+        <h3>👨‍👩‍👧 For Parents</h3>
+        <ul>
+            <li>Register and login to your account.</li>
+            <li>Add your child’s information.</li>
+            <li>Book vaccination appointments.</li>
+            <li>Reschedule appointments before hospital acceptance.</li>
+            <li>View reminders and appointment status.</li>
+            <li>Rate hospitals after vaccination completion.</li>
+        </ul>
+
+        <br>
+
+        <h3>🏥 For Hospitals</h3>
+        <ul>
+            <li>Register your hospital account.</li>
+            <li>Wait for admin approval.</li>
+            <li>View and manage appointments.</li>
+            <li>Update appointment status.</li>
+        </ul>
+
+        <br>
+
+        <h3>🧑‍💼 For Admin</h3>
+        <ul>
+            <li>Approve or reject hospitals.</li>
+            <li>Monitor appointment records.</li>
+            <li>View child and parent data.</li>
+        </ul>
+
+        <br>
+
+        <p>
+            If you face any issue while using the system,
+            please contact the system administrator.
+        </p>
+
+    </div>
+
+    <div class="hero-image">
+        <img src="{% static 'images/help.png' %}"
+             alt="Help"
+             style="width: 100%; max-width: 450px;">
+    </div>
+
+</section>
+
+{% endblock %}

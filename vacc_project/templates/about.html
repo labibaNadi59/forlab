@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - ShishuShield.BD{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="align-items: center;">
+
+    <div class="hero-text">
+        <h1>About<br>ShishuShield.BD</h1>
+
+        <p>
+            ShishuShield.BD is a Child Vaccination Management System
+            designed to help parents, hospitals, and administrators
+            manage vaccination activities in a simple and digital way.
+        </p>
+
+        <p>
+            Our goal is to reduce missed vaccinations, provide timely
+            reminders, and make appointment management easier for everyone.
+        </p>
+
+        <p>
+            Parents can manage child information, book appointments,
+            receive reminders, and rate hospitals after vaccination.
+            Hospitals can manage appointments efficiently through the system.
+        </p>
+
+        <div class="cta-container">
+            <a href="{% url 'login' %}" class="btn-main"
+               style="text-decoration: none; text-align: center; display: inline-block;">
+                Get Started
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="{% static 'images/about.png' %}"
+             alt="About Us"
+             style="width: 100%; max-width: 500px;">
+    </div>
+
+</section>
+
+{% endblock %}
+
